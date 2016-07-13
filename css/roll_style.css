@@ -1,0 +1,61 @@
+body {
+   font-size: 1em;
+   color: #000;
+   font-family: Arial;
+}
+a {
+    color: maroon;
+}
+.input_form {
+	width: 60%;
+	margin: 0 auto;
+}
+.input_field {
+    background: lightyellow;
+	display: block;
+}
+.input_field:focus {
+    background: linen;
+}
+table {
+    width: 60%;
+}
+.table_div {
+	width: 60%;
+	margin: 0 auto;
+}
+.row_header { 
+    background: maroon;
+    color: white;
+}
+.row_brown {
+    background: linen;
+} 
+.row_notsobrown {
+    background: lightyellow;
+}
+.debug {
+    background: goldenrod; 
+    padding-top: 20px;
+}
+#error_div {
+	display: block;
+	position: absolute;
+	top: 0;
+	display: none;
+	background: red;
+	color: yellow;
+}
+
+::-webkit-validation-bubble-arrow-clipper{}
+::-webkit-validation-bubble-arrow{}
+::-webkit-validation-bubble{
+	border-radius: 3px;
+	background: red;
+}
+::-webkit-validation-bubble-top-outer-arrow{}
+::-webkit-validation-bubble-top-inner-arrow{}
+::-webkit-validation-bubble-message{
+	color: yellow;
+}
+
