@@ -65,7 +65,7 @@ foreach($result as $row) {
         echo '</tr>';
     } else {
         echo '<tr class="row_notsobrown">';
-        echo '<td><a href="edituser.php?userid=' . $row['userID'] . '">' . $row['username'] . "</a></td>";
+        echo '<td><a href="man_user.php?userid=' . $row['userID'] . '">' . $row['username'] . "</a></td>";
         echo '<td>' . $row['firstname'] . "</td>";
         echo '<td>' . $row['lastname'] . "</td>";
         echo '<td>' . $row['usertype'] . "</td>";
@@ -101,5 +101,3 @@ echo '<div class="debug">DEBUG:GET:';
 echo var_dump($_GET); 
 echo '</div>';
 ?>
-</body>
-</html>

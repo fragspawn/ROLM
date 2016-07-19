@@ -48,7 +48,7 @@
 */
 ?>
     <div class="input_form">
-	    <form action="process_user.php" method="post" id="login_form" onSubmit="return doValidate();" novalidate>
+	    <form action="process_login.php" method="post" id="login_form" onSubmit="return doValidate();" novalidate>
 			<input type="text" name="username" id="username" class="input_field" pattern="(?=.*[a-zA-Z]).{8,}">
 			<input type="password" name="password" id="password" class="input_field" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
 			<input type="submit" name="submit_login" value="login">
