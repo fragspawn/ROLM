@@ -2,6 +2,12 @@
 <head>
 </head>
 <link rel="stylesheet" type="text/css" href="./css/roll_style.css">
+<script>
+	function doPopup(link_attrib) {
+		grey_background.style.display = 'block';
+		popup_dialogue.style.display = 'block';
+	}
+</script>
 <body>
 
 <?php
@@ -49,7 +55,7 @@ try {
 $total_rows = $result_count->fetchColumn();
 
 // 
-echo '<a href="man_user.php">Add User...</a>';
+echo '<a href="#" onClick="doPopup(\'man_user.php\');">Add User...</a>';
 
 // Iterate through result set
 $brown = 1;
@@ -101,3 +107,11 @@ echo '<div class="debug">DEBUG:GET:';
 echo var_dump($_GET); 
 echo '</div>';
 ?>
+
+<!-- Popup Infrastructure -->
+<div id="grey_background">
+</div>
+<div id="popup_dialogue">
+</div>
+</head>
+</html>

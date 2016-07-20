@@ -46,6 +46,25 @@ table {
 	background: red;
 	color: yellow;
 }
+#grey_background {
+	display: none;
+	position: absolute;
+	opacity: .5;
+	background: black;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+#popup_dialogue {
+	display: none;
+	position: absolute;
+	background: white;
+	top: 10%;
+	bottom: 10%;
+	left: 10%;
+	right: 10%;
+}
 
 ::-webkit-validation-bubble-arrow-clipper{}
 ::-webkit-validation-bubble-arrow{}
