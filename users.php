@@ -1,11 +1,18 @@
 <html>
 <head>
+<script src="./js/jquery-3.1.0.min.js"></script>
 </head>
 <link rel="stylesheet" type="text/css" href="./css/roll_style.css">
 <script>
 	function doPopup(link_attrib) {
 		grey_background.style.display = 'block';
 		popup_dialogue.style.display = 'block';
+		// JQuery Method:
+	    $("#popup_dialogue").load(link_attrib);
+	}
+	function doNotPopup() {
+		grey_background.style.display = 'none';
+		popup_dialogue.style.display = 'none';
 	}
 </script>
 <body>
@@ -55,6 +62,7 @@ try {
 $total_rows = $result_count->fetchColumn();
 
 // 
+
 echo '<a href="#" onClick="doPopup(\'man_user.php\');">Add User...</a>';
 
 // Iterate through result set
@@ -64,14 +72,14 @@ echo '<tr class="row_header"><th>username</th><th>first name</th><th>last name</
 foreach($result as $row) {
     if($brown%2 > 0) {
         echo '<tr class="row_brown">';
-        echo '<td><a href="man_user.php?userid=' . $row['userID'] . '">' . $row['username'] . "</a></td>";
+        echo '<td><a href="#" onClick="doPopup(\'man_user.php?userid=' . $row['userID'] . '\')">' . $row['username'] . "</a></td>";
         echo '<td>' . $row['firstname'] . "</td>";
         echo '<td>' . $row['lastname'] . "</td>";
         echo '<td>' . $row['usertype'] . "</td>";
         echo '</tr>';
     } else {
         echo '<tr class="row_notsobrown">';
-        echo '<td><a href="man_user.php?userid=' . $row['userID'] . '">' . $row['username'] . "</a></td>";
+        echo '<td><a href="#" onClick="doPopup(\'man_user.php?userid=' . $row['userID'] . '\')">' . $row['username'] . "</a></td>";
         echo '<td>' . $row['firstname'] . "</td>";
         echo '<td>' . $row['lastname'] . "</td>";
         echo '<td>' . $row['usertype'] . "</td>";
@@ -80,7 +88,6 @@ foreach($result as $row) {
     $brown++;
 } 
 echo '</table>';
-
 echo '<a href="users.php?amount=' . $amount . '&offset=0">|<- </a>';
 if($offset <= 0) {
     echo '<-';

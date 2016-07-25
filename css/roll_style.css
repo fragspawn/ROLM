@@ -58,6 +58,7 @@ table {
 }
 #popup_dialogue {
 	display: none;
+	padding-top: 20px;
 	position: absolute;
 	background: white;
 	top: 10%;

@@ -64,5 +64,6 @@ if(isset($_GET['userid'])) {
 		echo '<input type="submit" name="submit" value="add">';
 	}
 ?>
+       	<input type="button" name="cancel" value="cancel" onClick="doNotPopup()">
     </form>
 </div>

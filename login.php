@@ -1,3 +1,14 @@
+<?php
+session_start();
+if(isset($_SESSION['loggedon'])) {
+	if($_SESSION['loggedon'] == true) {
+		//redirect to success		
+		header('Location: ./success.php');
+	}
+} else {
+	 $_SESSION['loggedon'] = false;
+}
+?>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="./css/roll_style.css">
@@ -48,6 +59,7 @@
 */
 ?>
     <div class="input_form">
+		
 	    <form action="process_login.php" method="post" id="login_form" onSubmit="return doValidate();" novalidate>
 			<input type="text" name="username" id="username" class="input_field" pattern="(?=.*[a-zA-Z]).{8,}">
 			<input type="password" name="password" id="password" class="input_field" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
@@ -55,5 +67,13 @@
 		</form>
 	</div>
 </body>
-<div id="error_div"></div>
+<div id="error_div"> </div>
+<div>
+<?php
+    if(isset($_SESSION['login_error'])) {
+	    echo $_SESSION['login_error'];
+	    unset($_SESSION['login_error']);
+    }
+?>
+</div>
 </html>
