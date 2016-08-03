@@ -50,8 +50,9 @@ echo '<a href="#" onClick="doPopup(\'man_user.php\');">Add User...</a>';
 
 // Iterate through result set
 $brown = 1;
+echo '<form method="post" action="del_record.php">';
 echo '<table>';
-echo '<tr class="row_header"><th>username</th><th>first name</th><th>last name</th><th>type</th><th>DEL?</th></tr>';
+echo '<tr class="row_header"><th>username</th><th>first name</th><th>last name</th><th>type</th><th><input id="delcheck" class="delcheck" type="checkbox" onClick="check_uncheck(this);"></th></tr>';
 foreach($result as $row) {
     if($brown%2 > 0) {
         echo '<tr class="row_brown">';
@@ -60,29 +61,25 @@ foreach($result as $row) {
         echo '<td>' . $row['lastname'] . "</td>";
         echo '<td>' . $row['usertype'] . "</td>";
         echo '<td>';
-			echo '<form method="post" action="del_record.php" onSubmit="return confirmDelete();">';
-				echo '<input type="submit" name="del_button" value="delete">';
-				echo '<input type="hidden" name="hidden_user_id" value="' . $row['userID'] . '">';
-			echo "</form>";
+			echo '<input type="checkbox" class="delcheck" name="del[]" value="' . $row['userID'] . '">';
 		echo "</td>";
         echo '</tr>';
     } else {
-        echo '<tr class="row_notsobrown">';
+			echo '<tr class="row_notsobrown">';
         echo '<td><a href="#" onClick="doPopup(\'man_user.php?userid=' . $row['userID'] . '\')">' . $row['username'] . "</a></td>";
         echo '<td>' . $row['firstname'] . "</td>";
         echo '<td>' . $row['lastname'] . "</td>";
         echo '<td>' . $row['usertype'] . "</td>";
         echo '<td>';
-			echo '<form method="post" action="del_record.php" onSubmit="return confirmDelete();">';
-				echo '<input type="submit" value="delete">';
-				echo '<input type="hidden" value="' . $row['userID'] . '">';
-			echo "</form>";
+			echo '<input type="checkbox" class="delcheck" name="del[]" value="' . $row['userID'] . '">';
 		echo "</td>";
         echo '</tr>';
     }
     $brown++;
 } 
+echo '<tr><th><input type="submit" name="delete_checked" value="delete"></th></tr>';
 echo '</table>';
+echo "</form>";
 echo '<a href="users.php?amount=' . $amount . '&offset=0">|<- </a>';
 if($offset <= 0) {
     echo '<-';
@@ -104,5 +101,4 @@ if($offset > ($total_rows - $amount)) {
     echo '<a href="users.php?amount=' . $amount . '&offset=' . $new_offset . '">-></a>';
 }
 echo '<a href="users.php?amount=' . $amount . '&offset=' . ($total_rows - $amount) . '"> ->|</a>';
-
 include 'vue/footer.php';

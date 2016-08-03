@@ -36,6 +36,7 @@ if(isset($_GET['userid'])) {
 		$email = $row['email'];
 		$firstname = $row['firstname'];
 		$lastname = $row['lastname'];
+		$user_id = $row['userID'];
 	}
 } else {
 	$username = '';
@@ -55,10 +56,11 @@ if(isset($_GET['userid'])) {
         <input type="text" name="phone" id="phone" class="input_field" placeholder="Phone" value="<?php echo $phone; ?>">
         <input type="text" name="username" id="username" class="input_field" placeholder="User Name" value="<?php echo $username; ?>">
         <input type="password" name="password" id="password" class="input_field" placeholder="Password" value="<?php echo $password; ?>">
-
 <!-- If user needs INSERT or UPDATE -->
 <?php 
 	if(isset($_GET['userid'])) {
+		echo '<input type="hidden" name="userid" value="' . $user_id . '">';
+		echo '<input type="hidden" name="usertype" value="S">';
        	echo '<input type="submit" name="submit" value="update">';
 	} else {
 		echo '<input type="submit" name="submit" value="add">';

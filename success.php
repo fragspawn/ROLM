@@ -6,6 +6,8 @@ if(isset($_SESSION['loggedon'])) {
         //redirect to success       
         header('Location: ./login.php');
     }
+} else {
+    header('Location: ./login.php');
 }
 
 if(isset($_GET['logout'])) {

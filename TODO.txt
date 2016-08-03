@@ -1,4 +1,7 @@
-put a header and a footer together
+*put a header and a footer together
 Write form validation generically
 Create one place for database connection information
 
+Protect users page from direct access, 
+
+:

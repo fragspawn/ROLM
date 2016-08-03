@@ -23,12 +23,19 @@ $pass = "abc123";
 $conn = new PDO($uri, $user, $pass);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+/*
+Implement UPDATE function on users.php, to popup a pre-populated form, and submit to update.php and alter a pre-existing record in the database.
+*/
 if(isset($_POST['submit'])) {
 	if($_POST['submit'] == 'update') {
-		$sql = "UPDATE"; 
+		$sql = "UPDATE user SET username = '" . $_POST['username'] . "', password = '" . $_POST['password'] . "', firstname = '" . $_POST['firstname'] . "', lastname = '" . $_POST['lastname'] . "', email = '" . $_POST['email'] . "', phone_number = '" . $_POST['phone'] . "', usertype = '" . $_POST['usertype'] . "' WHERE userID = " . $_POST['userid'];
+
+// debug and die
+		echo $sql;
+		die();
+
 		try {
 			$result = $conn->query($sql); 
-			$result_count = $conn->query($sql_count);
 		} catch(PDOException $ex) {
 			echo $ex . '<br/>' . $sql;
 			die();
@@ -36,6 +43,9 @@ if(isset($_POST['submit'])) {
 		// STEP 4 Do something with that query
 
 		echo 'All Done Record updated (ha ha)';
+
+
+
 	} elseif($_POST['submit'] == 'add') {
 		$check_sql = "SELECT * FROM user WHERE username = :username OR email = :email";
 		$check_statement = $conn->prepare($check_sql);
@@ -77,16 +87,3 @@ if(isset($_POST['submit'])) {
 ?>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
