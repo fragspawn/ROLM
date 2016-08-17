@@ -8,6 +8,10 @@ body {
 a {
     color: maroon;
 }
+span {
+	display: inline-block;
+	width: 15%;
+}
 .header_img {
 	text-align: right;
 	width: 100%;
