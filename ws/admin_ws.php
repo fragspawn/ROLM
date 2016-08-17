@@ -177,8 +177,16 @@ if(isset($_GET['datatype'])) {
 	$datatype = sanatise_input($_GET['datatype']);
 
 	if($datatype == 'students') {
-		$sql = "SELECT * FROM user WHERE usertype = 'S'";
-		$output = query_from_db($sql);	
+		if(isset($_GET['studentID'])) {
+			$student_ID = sanatise_input($_GET['student']);
+			if(is_numeric($student_ID)) {
+				$sql = "SELECT * FROM user WHERE usertype = 'S' AND userID = " . $student_ID;
+				$output = query_from_db($sql);	
+			}
+		} else {
+			$sql = "SELECT userID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'S'";
+			$output = query_from_db($sql);	
+		}
 	}
 
 	if($datatype == 'teachers') {
@@ -186,21 +194,21 @@ if(isset($_GET['datatype'])) {
 			if($_GET['display'] == 'BRIEF') {
 				$sql = "SELECT userID, firstname, lastname FROM user WHERE usertype = 'T'";
 			} else {
-				$sql = "SELECT * FROM user WHERE usertype = 'T'";
+				$sql = "SELECT userID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T'";
 			}
 		} else {
-			$sql = "SELECT * FROM user WHERE usertype = 'T'";
+			$sql = "SELECT userID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T'";
 		}
 		$output = query_from_db($sql);	
 	}
 
 	if($datatype == 'classes') {
-		$sql = "SELECT * FROM classroom";
+		$sql = "SELECT ClassID, Class_name, Class_room_no, Class_day, start_time, end_time FROM classroom";
 		$output = advanced_query_from_db($sql, false);	
 	}
 
 	if($datatype == 'enrolments') {
-		if(isset($_GET['student'])) {
+		if(isset($_GET['studentID'])) {
 			$student_ID = sanatise_input($_GET['student']);
 			if(is_numeric($student_ID)) {
 				// Do we need the NAME of the class that the student is enrolment?
