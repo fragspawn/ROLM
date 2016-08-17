@@ -44,7 +44,9 @@ if(!isset($_SESSION['user_type'])) {
 <div class="header_img">
 	<img src="./img/ROLM_logo.png">
 </div>
+
 <?php
+// Admin header moved to admin page
 if(isset($_SESSION['user_type'])) {
 	if($_SESSION['user_type'] == 'teacher') {
 		echo '<nav>Teacher Nav Here</nav>';

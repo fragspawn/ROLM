@@ -44,8 +44,6 @@ if(isset($_POST['submit'])) {
 
 		echo 'All Done Record updated (ha ha)';
 
-
-
 	} elseif($_POST['submit'] == 'add') {
 		$check_sql = "SELECT * FROM user WHERE username = :username OR email = :email";
 		$check_statement = $conn->prepare($check_sql);
