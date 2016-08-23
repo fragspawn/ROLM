@@ -62,6 +62,20 @@ include 'vue/header.php';
  				});
 			}
 		</script>
+
+<div class="input_form">
+    <form id="add_form" method="post" action="#" onSubmit="return formValidate(this)" novalidate>
+        <input type="text" name="firstname" id="firstname" class="input_field" pattern="[A-Z]" placeholder="First Name">
+        <input type="text" name="lastname" id="lastname" class="input_field" pattern="[A-Z]" placeholder="Last Name">
+        <input type="text" name="email" id="email" class="input_field" pattern="[A-Z]" placeholder="Email">
+        <input type="text" name="phone" id="phone" class="input_field" pattern="[A-Z]" placeholder="Phone">
+        <input type="text" name="username" id="username" class="input_field" pattern="[A-Z]" placeholder="User Name"> 
+        <input type="text" name="password" id="password" class="input_field" pattern="[A-Z]" placeholder="Password">
+        <input type="submit" name="submit" value="add">
+        <input type="button" name="cancel" value="cancel" onClick="doNotPopup()">
+    </form>
+</div>
+
 <?php
 include 'vue/footer.php';
 ?>

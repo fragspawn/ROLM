@@ -8,6 +8,7 @@ if(!isset($_SESSION['user_type'])) {
 <html>
 <head>
 	<script src="./js/jquery-3.1.0.min.js"></script>
+	<script src="./js/library.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/roll_style.css">
 </head>
 <script>
