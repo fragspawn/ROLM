@@ -177,8 +177,8 @@ if(isset($_GET['datatype'])) {
 	$datatype = sanatise_input($_GET['datatype']);
 
 	if($datatype == 'students') {
-		if(isset($_GET['studentID'])) {
-			$student_ID = sanatise_input($_GET['student']);
+		if(isset($_GET['id'])) {
+			$student_ID = sanatise_input($_GET['id']);
 			if(is_numeric($student_ID)) {
 				$sql = "SELECT * FROM user WHERE usertype = 'S' AND userID = " . $student_ID;
 				$output = query_from_db($sql);	
@@ -190,14 +190,22 @@ if(isset($_GET['datatype'])) {
 	}
 
 	if($datatype == 'teachers') {
-		if(isset($_GET['display'])) {
-			if($_GET['display'] == 'BRIEF') {
-				$sql = "SELECT userID, firstname, lastname FROM user WHERE usertype = 'T'";
+		if(isset($_GET['id'])) {
+			$teacher_ID = sanatise_input($_GET['id']);
+			if(is_numeric($student_ID)) {
+				$sql = "SELECT * FROM user WHERE usertype = 'S' AND userID = " . $student_ID;
+				$output = query_from_db($sql);	
+			}
+		} else {
+			if(isset($_GET['display'])) {
+				if($_GET['display'] == 'BRIEF') {
+					$sql = "SELECT userID, firstname, lastname FROM user WHERE usertype = 'T'";
+				} else {
+					$sql = "SELECT userID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T'";
+				}
 			} else {
 				$sql = "SELECT userID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T'";
 			}
-		} else {
-			$sql = "SELECT userID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T'";
 		}
 		$output = query_from_db($sql);	
 	}
@@ -264,14 +272,18 @@ function advanced_query_from_db($checked_sql, $post_array) {
 			}
 		}
 
-		$check_conn->execute();
+		$success = $check_conn->execute();
 
 		if(substr($checked_sql, 0, 6) == "SELECT") {
 			$result = $check_conn->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		if(substr($checked_sql, 0, 6) == "INSERT") {
-		 	$result = array("result"=>$check_conn->lastInsertId());
+			if($success) {
+			 	$result = array("result"=>$conn->lastInsertId());
+			} else {
+				$result = array("result"=>"false");
+			}
 		}
 		
 		if(substr($checked_sql, 0, 6) == "UPDATE") {

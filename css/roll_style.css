@@ -27,6 +27,22 @@ nav {
 	min-height: 24px;
 	color: white;
 }
+.submenu {
+	width: 100%;
+	height: 2em;
+    background: maroon;
+}
+.submenu li {
+	padding-right: 2em;
+	padding-top: .5em;
+	list-style-type: none;
+	display: inline-block;
+}
+.submenu li a {
+	text-decoration: none;
+	color: white;
+}
+
 footer {
 	min-height: 48px;
 	background: linear-gradient(black,maroon);
@@ -65,10 +81,12 @@ table {
 .row_notsobrown {
     background: lightyellow;
 }
+
 .debug {
     background: goldenrod; 
     padding-top: 20px;
 }
+
 #error_div {
 	display: block;
 	position: absolute;
@@ -77,6 +95,7 @@ table {
 	background: red;
 	color: yellow;
 }
+
 #grey_background {
 	display: none;
 	position: absolute;
@@ -87,6 +106,7 @@ table {
 	left: 0;
 	right: 0;
 }
+
 #popup_dialogue {
 	display: none;
 	padding-top: 20px;
@@ -98,15 +118,14 @@ table {
 	right: 10%;
 }
 
-::-webkit-validation-bubble-arrow-clipper{}
-::-webkit-validation-bubble-arrow{}
-::-webkit-validation-bubble{
-	border-radius: 3px;
-	background: red;
-}
-::-webkit-validation-bubble-top-outer-arrow{}
-::-webkit-validation-bubble-top-inner-arrow{}
-::-webkit-validation-bubble-message{
-	color: yellow;
+#teacher {
+	display: none;
 }
 
+#student {
+	display: none;
+}
+
+#classe {
+	display: none;
+}
