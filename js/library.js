@@ -76,21 +76,39 @@ function get_data(method) {
 }
 			
 function doPopup(datatype, primary_key) {
+	// Open Dialogue Modal
     grey_background.style.display = 'block';
     popup_dialogue.style.display = 'block';
+	// Depending on wether it's add or update:
 	if(primary_key == 0) {
 		// Just show the ADD form 
     	document.getElementById(datatype).style.display = 'block';
 		document.getElementById(datatype + '_submit').value = 'add ' + datatype;
+		// if we came from edit form that set this, we have to unset
+		document.getElementById('userID').value = primary_key;
 	} else {
-		// make ADD form an EDIT form 
+		// alter ADD form to be an EDIT form 
     	document.getElementById(datatype).style.display = 'block';
 		document.getElementById(datatype + '_submit').value = 'edit ' + datatype;
+		// Set Hidden value to the ID that needs updating in PHP
+		//document.getElementById(datatype + 's_ID').value = primary_key;
+		document.getElementById('userID').value = primary_key;
+		//Get form data that needs editing
 		var url = "ws/admin_ws.php?datatype=" + datatype + "s&id=" + primary_key;
-		console.log(url);
-//    	$.getJSON(url, function( json_data ) {
+//		console.log(url);
+    	$.getJSON(url, function( json_data ) {
 //			// pre-populate form names with the keys that came in the json response
-//		})
+			for (var key in json_data) {	
+				var outdata = '';
+				for(var subkey in json_data[key]) {
+					document.getElementById(subkey).value = json_data[key][subkey];
+					outdata += subkey + ' ' + json_data[key][subkey] + ' ';
+				}
+			}		
+			console.log(outdata);
+		})
+
+		// if(datatype == 'classe') { get teachers list to put in dropdown }
 	}
 }
 

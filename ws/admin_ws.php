@@ -14,16 +14,16 @@ $_SESSION['usertype'] = 'admin';
 // Check that they are an admin user before continuing;
 if(isset($_SESSION['usertype'])) {
 	if($_SESSION['usertype'] != 'admin') {
-		throw_error();
+		throw_error('non admin error');
 	}
 } else {
-	throw_error();
+	throw_error('non user error');
 }
 
 // RATE LIMIT the number of requests to only once every 3 seconds
 if(isset($_SESSION['last_request'])) {
 	if((time() - $_SESSION['last_request']) < 3) {
-		throw_error();
+		throw_error('too many requests error');
     }
 }
 $_SESSION['last_request'] = time();
@@ -180,7 +180,7 @@ if(isset($_GET['datatype'])) {
 		if(isset($_GET['id'])) {
 			$student_ID = sanatise_input($_GET['id']);
 			if(is_numeric($student_ID)) {
-				$sql = "SELECT * FROM user WHERE usertype = 'S' AND userID = " . $student_ID;
+				$sql = "SELECT userID, username, password, firstname, lastname, email, phone_number FROM user WHERE usertype = 'S' AND userID = " . $student_ID;
 				$output = query_from_db($sql);	
 			}
 		} else {
@@ -192,8 +192,8 @@ if(isset($_GET['datatype'])) {
 	if($datatype == 'teachers') {
 		if(isset($_GET['id'])) {
 			$teacher_ID = sanatise_input($_GET['id']);
-			if(is_numeric($student_ID)) {
-				$sql = "SELECT * FROM user WHERE usertype = 'S' AND userID = " . $student_ID;
+			if(is_numeric($teacher_ID)) {
+				$sql = "SELECT userID, username, password, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T' AND userID = " . $teacher_ID;
 				$output = query_from_db($sql);	
 			}
 		} else {
@@ -235,9 +235,9 @@ echo json_encode($output);
 
 // END:
 
-function throw_error() {
+function throw_error($error_code) {
 	header('Content-Type: application/json');
-	$result =  array("result"=>"false");
+	$result =  array("result"=>$error_code);
 	echo json_encode($result);
 	die();
 }
@@ -278,6 +278,7 @@ function advanced_query_from_db($checked_sql, $post_array) {
 			$result = $check_conn->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		// THIS IS BROKEN
 		if(substr($checked_sql, 0, 6) == "INSERT") {
 			if($success) {
 			 	$result = array("result"=>$conn->lastInsertId());
