@@ -66,7 +66,7 @@ if(isset($_POST['submit'])) {
 			$sql = "UPDATE user SET username = :username, password = :password, 
 									firstname = :firstname, lastname = :lastname, 
 									email = :email, phone_number = :phone 
-					WHERE user.userID = " . $user_id;
+					WHERE user.ID = " . $user_id;
 
 			$array_of_post_data['username'] = sanatise_input($_POST['username']);
 			$array_of_post_data['password'] = sanatise_input($_POST['password']);
@@ -84,7 +84,7 @@ if(isset($_POST['submit'])) {
 		$delete_ids = $_POST['delete_ids'];
 		foreach($delete_ids as $a_del) {
 			if(is_numeric($a_del) && ((int)$a_del < 65535)) {
-				$sql = "DELETE FROM user WHERE user.userID = :userid"; 
+				$sql = "DELETE FROM user WHERE user.ID = :userid"; 
 				$array_of_post_data = array(':userid'=>$a_del); 
 				$result[] = advanced_query_from_db($sql, $array_of_post_data); 
 			}
@@ -115,7 +115,7 @@ if(isset($_POST['submit'])) {
 			$sql = "UPDATE user SET username = :username, password = :password, 
 									firstname = :firstname, lastname = :lastname, 
 									email = :email, phone_number = :phone 
-					WHERE user.userID = " . $user_id;
+					WHERE user.ID = " . $user_id;
 
 			$array_of_post_data['username'] = sanatise_input($_POST['username']);
 			$array_of_post_data['password'] = sanatise_input($_POST['password']);
@@ -133,7 +133,7 @@ if(isset($_POST['submit'])) {
 		$delete_ids = $_POST['delete_ids'];
 		foreach($delete_ids as $a_del) {
 			if(is_numeric($a_del) && ((int)$a_del < 65535)) {
-				$sql = "DELETE FROM user WHERE user.userID = :userid"; 
+				$sql = "DELETE FROM user WHERE user.ID = :userid"; 
 				$array_of_post_data = array(':userid'=>$a_del); 
 				$result[] = advanced_query_from_db($sql, $array_of_post_data); 
 			}
@@ -180,11 +180,11 @@ if(isset($_GET['datatype'])) {
 		if(isset($_GET['id'])) {
 			$student_ID = sanatise_input($_GET['id']);
 			if(is_numeric($student_ID)) {
-				$sql = "SELECT userID, username, password, firstname, lastname, email, phone_number FROM user WHERE usertype = 'S' AND userID = " . $student_ID;
+				$sql = "SELECT username, password, firstname, lastname, email, phone_number FROM user WHERE usertype = 'S' AND ID = " . $student_ID;
 				$output = query_from_db($sql);	
 			}
 		} else {
-			$sql = "SELECT userID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'S'";
+			$sql = "SELECT ID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'S'";
 			$output = query_from_db($sql);	
 		}
 	}
@@ -193,26 +193,34 @@ if(isset($_GET['datatype'])) {
 		if(isset($_GET['id'])) {
 			$teacher_ID = sanatise_input($_GET['id']);
 			if(is_numeric($teacher_ID)) {
-				$sql = "SELECT userID, username, password, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T' AND userID = " . $teacher_ID;
+				$sql = "SELECT username, password, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T' AND ID = " . $teacher_ID;
 				$output = query_from_db($sql);	
 			}
 		} else {
 			if(isset($_GET['display'])) {
 				if($_GET['display'] == 'BRIEF') {
-					$sql = "SELECT userID, firstname, lastname FROM user WHERE usertype = 'T'";
+					$sql = "SELECT ID, firstname, lastname FROM user WHERE usertype = 'T'";
 				} else {
-					$sql = "SELECT userID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T'";
+					$sql = "SELECT ID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T'";
 				}
 			} else {
-				$sql = "SELECT userID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T'";
+				$sql = "SELECT ID, username, firstname, lastname, email, phone_number FROM user WHERE usertype = 'T'";
 			}
 		}
 		$output = query_from_db($sql);	
 	}
 
 	if($datatype == 'classes') {
-		$sql = "SELECT ClassID, Class_name, Class_room_no, Class_day, start_time, end_time FROM classroom";
-		$output = advanced_query_from_db($sql, false);	
+		if(isset($_GET['id'])) {
+			$class_ID = sanatise_input($_GET['id']);
+			if(is_numeric($class_ID)) {
+				$sql = "SELECT Class_name, Class_room_no, Class_day, Teacher_ID, start_time, end_time FROM classroom WHERE ID = " . $class_ID;
+				$output = query_from_db($sql);	
+			}
+		} else {
+			$sql = "SELECT ID, Class_name, Class_room_no, Class_day, start_time, end_time FROM classroom";
+			$output = advanced_query_from_db($sql, false);	
+		}
 	}
 
 	if($datatype == 'enrolments') {
@@ -220,7 +228,7 @@ if(isset($_GET['datatype'])) {
 			$student_ID = sanatise_input($_GET['student']);
 			if(is_numeric($student_ID)) {
 				// Do we need the NAME of the class that the student is enrolment?
-				$sql = "SELECT * from enrolment WHERE student_id = :studentid";
+				$sql = "SELECT * from enrolment WHERE student_ID = :studentid";
 				$options_array['studentid'] = $student_ID;
 
 				$output = advanced_query_from_db($sql,$options_array);	

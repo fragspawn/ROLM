@@ -118,11 +118,7 @@ table {
 	right: 10%;
 }
 
-#teacher {
-	display: none;
-}
-
-#student {
+#user {
 	display: none;
 }
 
