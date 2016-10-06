@@ -36,7 +36,12 @@
 			<input type="text" name="Class_name" id="Class_name" class="input_field" pattern="[a-zA-Z0-9]{8,}" placeholder="Class Name">
 			<input type="text" name="Class_room_no" id="Class_room_no" class="input_field" pattern="[a-zA-Z0-9]{8,}" placeholder="Class Room No">
 			<input type="text" name="Class_day" id="Class_day" class="input_field" pattern="[a-zA-Z0-9]{8,}" placeholder="Class Day of Week">
-			<input type="text" name="Teacher_ID" id="Teacher_ID" class="input_field" pattern="[a-zA-Z0-9]{8,}" placeholder="Class Teacher ID">
+
+<!-- this needs to be a pre-populated dropdown -->
+			<select name="Teacher_ID" id="Teacher_ID" class="input_field">
+				<option>foo</option>
+			</select> 
+
 			<input type="time" name="start_time" id="start_time" class="input_field" pattern="[a-zA-Z0-9]{8,}" placeholder="00:00">
 			<input type="time" name="end_time" id="end_time" class="input_field" pattern="[a-zA-Z0-9]{8,}" placeholder="00:00">
 			<input type="hidden" name="classe_ID" id="classe_ID" value="0">

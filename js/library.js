@@ -1,10 +1,11 @@
 
 // Not Working
-document.addEventListener("keypress", keyPressAction, false);
 
+document.addEventListener("keydown", function(e) { keyPressAction(e)}, false);
+
+// DEFUNCT
 function keyPressAction(evt) {
 	if(evt.keycode == 27) {
-		console.log(evt.keycode);
 		doNotPopup(); 
 	}
 }
@@ -84,6 +85,7 @@ function doPopup(datatype, primary_key) {
    		document.getElementById('user').style.display = 'block';
 		document.getElementById('user_ID').value = primary_key;
 		// change hidden form field to S
+		// Implement enrolment form if edititing
 	}
     if (datatype == 'teacher') {
    		document.getElementById('user').style.display = 'block';
@@ -99,15 +101,16 @@ function doPopup(datatype, primary_key) {
 	if(primary_key > 0) {
 		var url = "ws/admin_ws.php?datatype=" + datatype + "s&id=" + primary_key;
    		$.getJSON(url, function( json_data ) {
-//			// pre-populate form names with the keys that came in the json response
+			// pre-populate form names with the keys that came in the json response
 			for (var key in json_data) {	
 				var outdata = '';
 				for(var subkey in json_data[key]) {
 					document.getElementById(subkey).value = json_data[key][subkey];
 					outdata += subkey + ' ' + json_data[key][subkey] + ' ';
 				}
-			}		
-			console.log(outdata);
+			}
+			// DEBUG
+			//console.log(outdata);
 		})
 	}
 	// if(datatype == 'classe') { get teachers list to put in dropdown }
@@ -125,6 +128,9 @@ function doNotPopup() {
 		var form_elements = all_forms[oi].childNodes; 
 		for(i=0;i<form_elements.length;i++) {
 			if(form_elements[i].type == 'text') {
+				form_elements[i].value = '';
+			}
+			if(form_elements[i].type == 'time') {
 				form_elements[i].value = '';
 			}
 		}

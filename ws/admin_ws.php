@@ -20,7 +20,7 @@ if(isset($_SESSION['usertype'])) {
 	throw_error('non user error');
 }
 
-// RATE LIMIT the number of requests to only once every 3 seconds
+// RATE LIMIT the number of requests to only once every 2 seconds
 if(isset($_SESSION['last_request'])) {
 	if((time() - $_SESSION['last_request']) < 3) {
 		throw_error('too many requests error');
